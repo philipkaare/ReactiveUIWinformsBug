@@ -35,7 +35,7 @@ namespace ReactiveUIWinformsBug
 
             this.WhenActivated(d =>
             {
-                d(this.OneWayBind(_vm, v => v.Button1Enabled, form => form.button1.Enabled));
+                //d(this.OneWayBind(_vm, v => v.Button1Enabled, form => form.button1.Enabled));
                 d(this.BindCommand(_vm, v => v.DisableButton1, form => form.button1));
 
 
