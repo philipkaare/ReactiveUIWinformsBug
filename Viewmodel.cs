@@ -33,18 +33,16 @@ namespace ReactiveUIWinformsBug
             var btn1Enabled = this.WhenAnyValue(x => x.Button1Enabled);
             DisableButton1 = ReactiveCommand.Create(() =>
             {
-                Observable.Start(() =>
-                {
-                    // Disable the command. This automatically disables the UI via the command binding
-                    Button1Enabled = false;
-                }, RxApp.MainThreadScheduler);
+                // Disable the command. This automatically disables the UI via the command binding
+                // NOTE: execution happens on the taskpool thread.
+                Button1Enabled = false;
             }, btn1Enabled);
 
             DisableButton2 = ReactiveCommand.Create(() =>
             {
                 Observable.Start(() =>
                 {
-                    // this forces a refresh of the UI thread
+                    // this forces a refresh of the UI thread, but requires a UI thread to Execute correctly
                     Application.DoEvents();
                     // Set the Enabled state of the Button to false.
                     Button2Enabled = false;
